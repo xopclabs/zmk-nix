@@ -32,11 +32,12 @@ writeShellApplication {
 
         sleep 1
 
-        if [ -z "$(mounted)" ]; then
+        mountpoint="$(mounted)"
+        if [ -z "$mountpoint" ]; then
             echo -n "Please mount the mass storage device at $device so that the firmware file can be copied"
             while ! mountpoint="$(mounted)"; do
                 echo -n .
-                sleep 3
+                sleep 1
             done
         fi
         echo
