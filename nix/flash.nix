@@ -13,36 +13,63 @@ writeShellApplication {
 
   text = ''
     available() {
-      lsblk -Sno path,model | grep -F 'nRF UF2' | cut -d' ' -f1
+        lsblk -Sno path,model | grep -F 'nRF UF2' | cut -d' ' -f1
     }
 
     mounted() {
-      findmnt "$device" -no target
+        findmnt "$device" -no target
     }
 
-    # shellcheck disable=SC2043
-    for part in ${toString firmware.parts or ''""''}; do
-      echo -n "Double tap reset and plug in$([ -n "$part" ] && echo " the '$part' part of") the keyboard via USB"
-      while ! device="$(available)"; do
-        echo -n .
-        sleep 3
-      done
-      echo
-
-      sleep 1
-
-      mountpoint="$(mounted)"
-      if [ -z "$mountpoint" ]; then
-        echo -n "Please mount the mass storage device at $device so that the firmware file can be copied"
-        while ! mountpoint="$(mounted)"; do
-          echo -n .
-          sleep 3
+    flash_part() {
+        local part="$1"
+        
+        echo -n "Double tap reset and plug in$([ -n "$part" ] && echo " the '$part' part of") the keyboard via USB"
+        while ! device="$(available)"; do
+            echo -n .
+            sleep 3
         done
-      fi
-      echo
+        echo
 
-      cp ${firmware}/*"$([ -n "$part" ] && ehco "_$part")".uf2
-    done
+        sleep 1
+
+        if [ -z "$(mounted)" ]; then
+            echo -n "Please mount the mass storage device at $device so that the firmware file can be copied"
+            while ! mountpoint="$(mounted)"; do
+                echo -n .
+                sleep 3
+            done
+        fi
+        echo
+            
+        cp ${firmware}/*"$([ -n "$part" ] && echo "_$part")".uf2 "$mountpoint"
+    }
+
+    # Set default part to "all" if not specified
+    part="all"
+
+    # Check if the "part" argument is provided
+    if [ $# -gt 0 ]; then
+        part="$1"
+    fi
+
+    # Flash the specified part or all parts based on the provided argument
+    case "$part" in
+        "left")
+            flash_part "left"
+            ;;
+        "right")
+            flash_part "right"
+            ;;
+        "all")
+            for part in ${toString firmware.parts or ''""''}; do
+                flash_part "$part"
+            done
+            ;;
+        *)
+            echo "Invalid part option. Available options are: left, right, all."
+            exit 1
+            ;;
+    esac
   '';
 
   meta = with lib; {
