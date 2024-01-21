@@ -31,7 +31,7 @@
             quick-release;
         };
         sl: sticky_layer {
-            compatible = "zmk,behavior-sticky-layer";
+            compatible = "zmk,behavior-sticky-key";
             release-after-ms = <1000>;
         };      
     };
@@ -93,10 +93,10 @@
         };
         opts_layer {
             bindings = <
-            &none           &none       &none      &none      &bootloader        &none  &none      &out OUT_TOG  &none      &none
-            &bt BT_CLR_ALL  &sys_reset  &none      &none      &none              &none  &bt SEL 0  &bt SEL 1     &bt SEL 2  &bt SEL 3
-            &none           &bt BT_CLR  &none      &none      &none              &none  &none      &none         &none      &none
-                                              &none      &none              &none  &none
+            &none           &none       &none      &none      &bootloader    &none  &none         &none         &none         &none
+            &bt BT_CLR_ALL  &sys_reset  &none      &none      &none          &none  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3
+            &none           &bt BT_CLR  &none      &none      &none          &none  &none         &none         &none         &none
+                                                   &none      &none          &none  &none
             >;
         };
 

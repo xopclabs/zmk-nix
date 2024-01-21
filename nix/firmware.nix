@@ -6,7 +6,7 @@
 buildSplitKeyboard {
   name = "cradio-firmware";
 
-  src = lib.sourceFilesBySuffices self [ ".conf" ".keymap" ".yml" ];
+  src = lib.sourceFilesBySuffices self [ ".conf" ".keymap" ".yml" ".h" ];
 
   board = "nrfmicro_13";
   shield = "cradio_%PART%";
