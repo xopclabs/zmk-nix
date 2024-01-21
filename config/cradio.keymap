@@ -13,7 +13,9 @@
 #define FUNC 4
 #define OPTS 5
 
-#define LANG LS(LALT)
+#define LANG_SW LS(LALT)
+#define LANG_RU LA(F13)
+#define LANG_ENG LA(F14)
 
 
 / {
@@ -35,12 +37,43 @@
             release-after-ms = <1000>;
         };      
     };
-
     conditional_layers {
         compatible = "zmk,conditional-layers";
         tri_layer {
             if-layers = <NUM FUNC>;
             then-layer = <OPTS>;
+        };
+    };
+    macros {
+        lang_sw: lang_sw {
+            compatible = "zmk,behavior-macro";
+            wait-ms = <0>;
+            tap-ms = <0>;
+            #binding-cells = <0>;
+            bindings
+                = <&macro_tap &kp LANG_SW>
+                , <&macro_tap &tog RU>
+                ;
+        };
+        to_ru: lang_ru {
+            compatible = "zmk,behavior-macro";
+            wait-ms = <0>;
+            tap-ms = <0>;
+            #binding-cells = <0>;
+            bindings
+                = <&macro_tap &kp LANG_RU>
+                , <&macro_tap &tog RU>
+                ;
+        };
+        to_eng: lang_en {
+            compatible = "zmk,behavior-macro";
+            wait-ms = <0>;
+            tap-ms = <0>;
+            #binding-cells = <0>;
+            bindings
+                = <&macro_tap &kp LANG_ENG>
+                , <&macro_tap &tog ENG>
+                ;
         };
     };
 
@@ -87,7 +120,7 @@
             bindings = <
             &kp F1      &kp F2      &kp F3      &kp F4      &kp F5         &kp F6        &kp F7        &kp F8      &kp F9     &kp F10
             &sk LGUI    &sk LALT    &sk LSHIFT  &sk LCTRL   &kp G          &kp PSCRN     &kp LEFT      &kp DOWN    &kp UP     &kp RIGHT
-            &none       &none       &none       &kp DEL     &kp LANG       &kp C_VOL_UP  &kp C_VOL_DN  &kp C_MUTE  &kp F11    &kp F12
+            &none       &none       &none       &kp DEL     &lang_sw       &kp C_VOL_UP  &kp C_VOL_DN  &kp C_MUTE  &kp F11    &kp F12
                                                 &none       &none          &lt NUM ESC   &none
             >;
         };
