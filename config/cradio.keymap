@@ -13,7 +13,7 @@
 #define FUNC 4
 #define OPTS 5
 
-#define LANG LA(LSHIFT)
+#define LANG LS(LALT)
 
 
 / {
