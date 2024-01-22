@@ -16,8 +16,8 @@
 #define OPTS 7
 
 #define LANG_SW LA(LSHIFT)
-#define LANG_ENG LA(F8)
-#define LANG_RU LA(F9)
+#define LANG_ENG F13
+#define LANG_RU F14
 
 
 / {
@@ -81,29 +81,6 @@
                 = <&macro_press &kp LANG_SW>
                 , <&macro_release &kp LANG_SW>
                 , <&macro_tap &tog RU>
-                ;
-        };
-        tog_ru: lang_ru_tog {
-            compatible = "zmk,behavior-macro";
-            wait-ms = <30>;
-            tap-ms = <0>;
-            #binding-cells = <0>;
-            bindings
-                = <&macro_tap &kp LANG_RU>
-                , <&macro_tap &tog RU>
-                , <&macro_tap &tog NUM>
-                , <&macro_tap &tog RU>
-                ;
-        };
-        tog_en: lang_en_tog {
-            compatible = "zmk,behavior-macro";
-            wait-ms = <0>;
-            tap-ms = <0>;
-            #binding-cells = <0>;
-            bindings
-                = <&macro_press &kp LANG_ENG>
-                , <&macro_release &kp LANG_ENG>
-                , <&macro_tap &tog ENG>
                 ;
         };
         to_ru: lang_ru {
@@ -214,7 +191,7 @@
 
         lang_layer {
             bindings = <
-            &none        &none      &tog_ru    &tog_en      &none          &none      &none      &none      &none      &none
+            &none        &none      &none      &none      &none          &none      &none      &none      &none      &none
             &kp LANG_SW  &lang_sw   &to_ru     &to_en     &none          &none      &none      &none      &none      &none
             &none        &none      &none      &none      &none          &none      &none      &none      &none      &none
                                                &none      &none          &none      &none
@@ -223,10 +200,10 @@
 
         opts_layer {
             bindings = <
-            &none           &none       &none      &none      &bootloader    &none  &none         &none         &none         &none
-            &bt BT_CLR_ALL  &sys_reset  &none      &none      &none          &none  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3
-            &none           &bt BT_CLR  &none      &none      &none          &none  &none         &none         &none         &none
-                                                   &none      &none          &none  &none
+            &none           &none       &none  &sys_reset  &bootloader  &bootloader  &sys_reset    &none         &none         &none
+            &bt BT_CLR_ALL  &none       &none  &none       &none        &none        &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3
+            &none           &bt BT_CLR  &none  &none       &none        &none        &none         &none         &none         &none
+                                               &none       &none        &none        &none
             >;
         };
 
