@@ -167,7 +167,7 @@
             &kp TILDE  &kp AT    &kp PRCNT  &kp EXCL   &kp HASH      &kp SLASH  &kp QMARK  &kp LT     &kp GT    &kp BSLH
             &kp SQT    &kp LBKT  &kp RBKT   &kp EQUAL  &kp PLUS      &kp STAR   &kp UNDER  &kp LPAR   &kp RPAR  &kp MINUS
             &kp COLON  &kp SEMI  &kp DQT    &kp CARET  &kp DLLR      &kp LBRC   &kp RBRC   &kp GRAVE  &kp AMPS  &kp PIPE
-                                            &kp SPACE  &kp BSPC      &kp COMMA  &kp PERIOD
+                                            &kp SPACE  &kp BSPC      &kp PERIOD &kp COMMA
             >;
         };
 
