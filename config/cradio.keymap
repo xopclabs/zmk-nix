@@ -6,16 +6,18 @@
 #include <dt-bindings/zmk/bt.h>
 #include "keymap_ru.h"
 
-#define ENG 0
-#define RU 1
-#define SYMB 2
-#define NUM 3
-#define FUNC 4
-#define OPTS 5
+#define ENG_BASE 0
+#define ENG 1
+#define RU 2
+#define SYMB 3
+#define NUM 4
+#define FUNC 5
+#define LANGCH 6
+#define OPTS 7
 
-#define LANG_SW LS(LALT)
-#define LANG_RU LA(F13)
-#define LANG_ENG LA(F14)
+#define LANG_SW LA(LSHIFT)
+#define LANG_ENG LA(F8)
+#define LANG_RU LA(F9)
 
 
 / {
@@ -24,19 +26,43 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <205>;
+            tapping-term-ms = <175>;
             bindings = <&kp>, <&kp>;
+        };
+        lt: layer_tap {
+            compatible = "zmk,behavior-hold-tap";
+            flavor = "tap-preferred";
+            tapping-term-ms = <175>;
         };
         sk: sticky_key {
             compatible = "zmk,behavior-sticky-key";
-            release-after-ms = <1000>;
+            release-after-ms = <500>;
             quick-release;
         };
         sl: sticky_layer {
             compatible = "zmk,behavior-sticky-key";
-            release-after-ms = <1000>;
-        };      
+            release-after-ms = <500>;
+        };     
+        ru_ss_hs: ru_ss_hs {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <300>;
+            bindings = <&kp RU_SS>, <&kp RU_HS>;
+        };
+        ru_b_jo: ru_b_jo {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp RU_B>, <&kp RU_JO>;
+        };
+        ru_sh_sch: ru_sh_sch {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <300>;
+            bindings = <&kp RU_SH>, <&kp RU_SCH>;
+        };
     };
+
     conditional_layers {
         compatible = "zmk,conditional-layers";
         tri_layer {
@@ -44,6 +70,7 @@
             then-layer = <OPTS>;
         };
     };
+
     macros {
         lang_sw: lang_sw {
             compatible = "zmk,behavior-macro";
@@ -51,8 +78,32 @@
             tap-ms = <0>;
             #binding-cells = <0>;
             bindings
-                = <&macro_tap &kp LANG_SW>
+                = <&macro_press &kp LANG_SW>
+                , <&macro_release &kp LANG_SW>
                 , <&macro_tap &tog RU>
+                ;
+        };
+        tog_ru: lang_ru_tog {
+            compatible = "zmk,behavior-macro";
+            wait-ms = <30>;
+            tap-ms = <0>;
+            #binding-cells = <0>;
+            bindings
+                = <&macro_tap &kp LANG_RU>
+                , <&macro_tap &tog RU>
+                , <&macro_tap &tog NUM>
+                , <&macro_tap &tog RU>
+                ;
+        };
+        tog_en: lang_en_tog {
+            compatible = "zmk,behavior-macro";
+            wait-ms = <0>;
+            tap-ms = <0>;
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LANG_ENG>
+                , <&macro_release &kp LANG_ENG>
+                , <&macro_tap &tog ENG>
                 ;
         };
         to_ru: lang_ru {
@@ -62,24 +113,60 @@
             #binding-cells = <0>;
             bindings
                 = <&macro_tap &kp LANG_RU>
-                , <&macro_tap &tog RU>
+                , <&macro_tap &to RU>
                 ;
         };
-        to_eng: lang_en {
+        to_en: lang_en {
             compatible = "zmk,behavior-macro";
             wait-ms = <0>;
             tap-ms = <0>;
             #binding-cells = <0>;
             bindings
                 = <&macro_tap &kp LANG_ENG>
-                , <&macro_tap &tog ENG>
+                , <&macro_tap &to ENG>
                 ;
         };
     };
 
+    combos {
+        compatible = "zmk,combos";
+        combo_esc {
+            timeout-ms = <30>;
+            key-positions = <11 12>;
+            require-prior-idle-ms = <50>;
+            bindings = <&kp ESC>;
+        };
+        combo_tab {
+            timeout-ms = <30>;
+            key-positions = <12 13>;
+            require-prior-idle-ms = <50>;
+            bindings = <&kp TAB>;
+        };
+        combo_enter {
+            timeout-ms = <30>;
+            key-positions = <16 17>;
+            require-prior-idle-ms = <50>;
+            bindings = <&kp ENTER>;
+        };
+        combo_bspcword {
+            timeout-ms = <30>;
+            key-positions = <6 7>;
+            require-prior-idle-ms = <50>;
+            bindings = <&kp LC(BSPC)>;
+        };
+    };
 
     keymap {
         compatible = "zmk,keymap";
+        eng_base_layer {
+            bindings = <
+            &kp Q      &kp W      &kp F      &kp P      &kp B          &kp J      &kp L      &kp U      &kp Y      &kp SEMI
+            &kp A      &kp R      &kp S      &kp T      &kp G          &kp M      &kp N      &kp E      &kp I      &kp O
+            &kp Z      &kp X      &kp C      &kp D      &kp V          &kp K      &kp H      &kp COMMA  &kp DOT    &kp FSLH
+                                       &lt SYMB SPACE   &sl FUNC      &lt NUM ESC  &ht LSHIFT BSPC
+            >;
+        };
+
         eng_layer {
             bindings = <
             &kp Q      &kp W      &kp F      &kp P      &kp B          &kp J      &kp L      &kp U      &kp Y      &kp SEMI
@@ -91,19 +178,19 @@
 
         ru_layer {
             bindings = <
-            &kp RU_F   &kp RU_YA  &kp RU_SS  &kp RU_P   &kp RU_B     &kp RU_H  &kp RU_L  &kp RU_Y   &kp RU_JI  &kp RU_ZH
-            &kp RU_A   &kp RU_R   &kp RU_S   &kp RU_T   &kp RU_G     &kp RU_M  &kp RU_N  &kp RU_E   &kp RU_I   &kp RU_O
-            &kp RU_CH  &kp RU_C   &kp RU_K   &kp RU_D   &kp RU_YI    &kp RU_Z  &kp RU_V  &kp RU_SH  &kp RU_YU  &kp RU_IE
+            &kp RU_F   &kp RU_YA  &ru_ss_hs  &kp RU_P   &ru_b_jo     &kp RU_H  &kp RU_L  &kp RU_Y    &kp RU_JI  &kp RU_ZH
+            &kp RU_A   &kp RU_R   &kp RU_S   &kp RU_T   &kp RU_G     &kp RU_M  &kp RU_N  &kp RU_E    &kp RU_I   &kp RU_O
+            &kp RU_CH  &kp RU_C   &kp RU_K   &kp RU_D   &kp RU_YI    &kp RU_Z  &kp RU_V  &ru_sh_sch  &kp RU_YU  &kp RU_IE
                                        &lt SYMB SPACE   &sl FUNC     &lt NUM ESC  &ht LSHIFT BSPC
             >;
         };
 
         symb_layer {
             bindings = <
-            &kp Q      &kp W      &kp F      &kp P      &kp B          &kp J      &kp L      &kp U      &kp Y      &kp SEMI
-            &kp A      &kp R      &kp S      &kp T      &kp G          &kp M      &kp N      &kp E      &kp I      &kp O
-            &kp Z      &kp X      &kp C      &kp D      &kp V          &kp K      &kp H      &kp COMMA  &kp DOT    &kp FSLH
-                                       &lt SYMB SPACE   &sl FUNC      &lt NUM ESC  &ht LSHIFT BSPC
+            &kp TILDE  &kp AT    &kp PRCNT  &kp EXCL   &kp HASH      &kp SLASH  &kp QMARK  &kp LT     &kp GT    &kp BSLH
+            &kp SQT    &kp LBKT  &kp RBKT   &kp EQUAL  &kp PLUS      &kp STAR   &kp UNDER  &kp LPAR   &kp RPAR  &kp MINUS
+            &kp COLON  &kp SEMI  &kp DQT    &kp CARET  &kp DLLR      &kp LBRC   &kp RBRC   &kp GRAVE  &kp AMPS  &kp PIPE
+                                            &kp SPACE  &kp BSPC      &kp COMMA  &kp PERIOD
             >;
         };
 
@@ -118,12 +205,22 @@
 
         func_layer {
             bindings = <
-            &kp F1      &kp F2      &kp F3      &kp F4      &kp F5         &kp F6        &kp F7        &kp F8      &kp F9     &kp F10
-            &sk LGUI    &sk LALT    &sk LSHIFT  &sk LCTRL   &kp G          &kp PSCRN     &kp LEFT      &kp DOWN    &kp UP     &kp RIGHT
-            &none       &none       &none       &kp DEL     &lang_sw       &kp C_VOL_UP  &kp C_VOL_DN  &kp C_MUTE  &kp F11    &kp F12
-                                                &none       &none          &lt NUM ESC   &none
+            &kp F1      &kp F2      &kp F3      &kp F4      &kp F5            &kp F6     &kp F7        &kp F8      &kp F9     &kp F10
+            &sk LGUI    &sk LALT    &sk LSHIFT  &sk LCTRL   &kp C_VOL_UP      &kp PSCRN  &kp LEFT      &kp DOWN    &kp UP     &kp RIGHT
+            &none       &none       &none       &kp DEL     &kp C_VOL_DN      &none      &sl LANGCH    &none       &kp F11    &kp F12
+                                                &none       &none             &lt NUM ESC   &none
             >;
         };
+
+        lang_layer {
+            bindings = <
+            &none        &none      &tog_ru    &tog_en      &none          &none      &none      &none      &none      &none
+            &kp LANG_SW  &lang_sw   &to_ru     &to_en     &none          &none      &none      &none      &none      &none
+            &none        &none      &none      &none      &none          &none      &none      &none      &none      &none
+                                               &none      &none          &none      &none
+            >;
+        };
+
         opts_layer {
             bindings = <
             &none           &none       &none      &none      &bootloader    &none  &none         &none         &none         &none
