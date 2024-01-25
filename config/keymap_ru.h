@@ -10,8 +10,8 @@
 #define RU_SH I
 #define RU_SCH O
 #define RU_Z P
-#define RU_H LBRC
-#define RU_HS RBRC
+#define RU_H LBKT
+#define RU_HS RBKT
 #define RU_F A
 #define RU_YI S
 #define RU_V D
