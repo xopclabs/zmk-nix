@@ -108,25 +108,25 @@
     combos {
         compatible = "zmk,combos";
         combo_esc {
-            timeout-ms = <30>;
+            timeout-ms = <40>;
             key-positions = <11 12>;
             require-prior-idle-ms = <50>;
             bindings = <&kp ESC>;
         };
         combo_tab {
-            timeout-ms = <30>;
+            timeout-ms = <40>;
             key-positions = <12 13>;
             require-prior-idle-ms = <50>;
             bindings = <&kp TAB>;
         };
         combo_enter {
-            timeout-ms = <30>;
+            timeout-ms = <40>;
             key-positions = <16 17>;
             require-prior-idle-ms = <50>;
             bindings = <&kp ENTER>;
         };
         combo_bspcword {
-            timeout-ms = <30>;
+            timeout-ms = <40>;
             key-positions = <6 7>;
             require-prior-idle-ms = <50>;
             bindings = <&kp LC(BSPC)>;
