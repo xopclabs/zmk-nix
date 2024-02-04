@@ -28,8 +28,8 @@ manifest:
           - trusted-firmware-m
           - sof
     - name: zmk
-      remote: zmkfirmware
-      revision: 19613128b901723f7b78c136792d72e6ca7cf4fc  # main
+      remote: xopclabs
+      revision: b520387adaa01f8422e8197f0e8ded65cccfd1df  # press-on-lang-behavior
       import: app/west.yml
   self:
     path: config

@@ -6,14 +6,13 @@
 #include <dt-bindings/zmk/bt.h>
 #include "keymap_ru.h"
 
-#define ENG_BASE 0
-#define ENG 1
-#define RU 2
-#define SYMB 3
-#define NUM 4
-#define FUNC 5
-#define LANGCH 6
-#define OPTS 7
+#define ENG 0
+#define RU 1
+#define SYMB 2
+#define NUM 3
+#define FUNC 4
+#define LANGCH 5
+#define OPTS 6
 
 #define LANG_SW LA(LSHIFT)
 #define LANG_ENG F13
@@ -74,10 +73,22 @@
             bindings = <&none>, <&bt BT_SEL 0>;
         };
         ls: lang_switch {
-            compatible = "zmk,behavior-language";
+            compatible = "zmk,behavior-lang-switch";
             #binding-cells = <1>;
             bindings = <&kp LANG_SW>;
             layers = <ENG RU>;
+        };
+        ls_: lang_switch_no_layer {
+            compatible = "zmk,behavior-lang-switch";
+            #binding-cells = <1>;
+            bindings = <&kp LANG_SW>;
+            layers = <ENG RU>;
+            no-layer-switch;
+        };
+        kp_en: kp_on_eng {
+            compatible = "zmk,behavior-kp-on-lang";
+            #binding-cells = <1>;
+            bindings = <&ls_ ENG>;
         };
     };
 
@@ -119,14 +130,6 @@
 
     keymap {
         compatible = "zmk,keymap";
-        eng_base_layer {
-            bindings = <
-            &kp Q      &kp W      &kp F      &kp P      &kp B          &kp J      &kp L      &kp U      &kp Y      &kp SEMI
-            &kp A      &kp R      &kp S      &kp T      &kp G          &kp M      &kp N      &kp E      &kp I      &kp O
-            &kp Z      &kp X      &kp C      &kp D      &kp V          &kp K      &kp H      &kp COMMA  &kp DOT    &kp FSLH
-                                       &lt SYMB SPACE   &sl FUNC      &lt NUM ESC  &ht LSHIFT BSPC
-            >;
-        };
 
         eng_layer {
             bindings = <
@@ -148,13 +151,12 @@
 
         symb_layer {
             bindings = <
-            &kp TILDE  &kp AT    &kp PRCNT  &kp EXCL   &kp HASH      &kp SLASH  &kp QMARK  &kp LT     &kp GT    &kp BSLH
-            &kp SQT    &kp LBKT  &kp RBKT   &kp EQUAL  &kp PLUS      &kp STAR   &kp UNDER  &kp LPAR   &kp RPAR  &kp MINUS
-            &kp COLON  &kp SEMI  &kp DQT    &kp CARET  &kp DLLR      &kp LBRC   &kp RBRC   &kp GRAVE  &kp AMPS  &kp PIPE
-                                            &kp SPACE  &kp BSPC      &kp PERIOD &kp COMMA
+            &kp_en TILDE  &kp_en AT    &kp_en PRCNT  &kp_en EXCL   &kp_en HASH      &kp_en SLASH  &kp_en QMARK  &kp_en LT     &kp_en GT    &kp_en BSLH
+            &kp_en SQT    &kp_en LBKT  &kp_en RBKT   &kp_en EQUAL  &kp_en PLUS      &kp_en STAR   &kp_en UNDER  &kp_en LPAR   &kp_en RPAR  &kp_en MINUS
+            &kp_en COLON  &kp_en SEMI  &kp_en DQT    &kp_en CARET  &kp_en DLLR      &kp_en LBRC   &kp_en RBRC   &kp_en GRAVE  &kp_en AMPS  &kp_en PIPE
+                                            &kp SPACE  &kp BSPC    &kp_en PERIOD    &kp_en COMMA
             >;
         };
-
         num_layer {
             bindings = <
             &none      &none      &none      &none      &none          &none      &none      &none      &none      &none
@@ -175,8 +177,8 @@
 
         lang_layer {
             bindings = <
-            &none        &none      &none      &none      &none          &none      &none      &none      &none      &none
-            &kp LANG_SW  &none      &ls RU     &ls ENG    &none          &none      &none      &none      &none      &none
+            &kp LANG_SW  &none      &none      &none      &none          &none      &none      &none      &none      &none
+            &none        &none      &ls RU     &ls ENG    &none          &none      &none      &none      &none      &none
             &none        &none      &none      &none      &none          &none      &none      &none      &none      &none
                                                &none      &none          &none      &none
             >;
