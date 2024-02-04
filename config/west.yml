@@ -2,6 +2,8 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: xopclabs
+      url-base: https://github.com/xopclabs
   projects:
     - name: zephyr
       remote: zmkfirmware
