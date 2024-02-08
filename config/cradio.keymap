@@ -115,25 +115,24 @@
             layers = <RU>;
         };
         combo_esc {
-            timeout-ms = <100>;
+            timeout-ms = <50>;
             key-positions = <11 12>;
-            require-prior-idle-ms = <20>;
+            require-prior-idle-ms = <40>;
             bindings = <&kp ESC>;
-            layers = <SYMB NUM>;
         };
         combo_tab {
             timeout-ms = <100>;
             key-positions = <12 13>;
             require-prior-idle-ms = <20>;
             bindings = <&kp TAB>;
-            layers = <SYMB NUM>;
+            layers = <SYMB NUM FUNC>;
         };
         combo_enter {
             timeout-ms = <100>;
             key-positions = <16 17>;
             require-prior-idle-ms = <20>;
             bindings = <&kp ENTER>;
-            layers = <SYMB NUM>;
+            layers = <SYMB NUM FUNC>;
         };
         combo_bspcword {
             timeout-ms = <40>;
