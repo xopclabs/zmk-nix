@@ -16,9 +16,6 @@
 #define OPTS 6
 
 #define LANG_SW LA(LSHIFT)
-#define LANG_ENG F13
-#define LANG_RU F14
-
 
 / {
     behaviors {
@@ -103,23 +100,40 @@
 
     combos {
         compatible = "zmk,combos";
-        combo_esc {
+        combo_ru {
             timeout-ms = <40>;
+            key-positions = <2 3>;
+            require-prior-idle-ms = <20>;
+            bindings = <&ls RU>;
+            layers = <ENG>;
+        };
+        combo_eng {
+            timeout-ms = <40>;
+            key-positions = <2 3>;
+            require-prior-idle-ms = <20>;
+            bindings = <&ls ENG>;
+            layers = <RU>;
+        };
+        combo_esc {
+            timeout-ms = <100>;
             key-positions = <11 12>;
-            require-prior-idle-ms = <50>;
+            require-prior-idle-ms = <20>;
             bindings = <&kp ESC>;
+            layers = <SYMB NUM>;
         };
         combo_tab {
-            timeout-ms = <40>;
+            timeout-ms = <100>;
             key-positions = <12 13>;
-            require-prior-idle-ms = <50>;
+            require-prior-idle-ms = <20>;
             bindings = <&kp TAB>;
+            layers = <SYMB NUM>;
         };
         combo_enter {
-            timeout-ms = <40>;
+            timeout-ms = <100>;
             key-positions = <16 17>;
-            require-prior-idle-ms = <50>;
+            require-prior-idle-ms = <20>;
             bindings = <&kp ENTER>;
+            layers = <SYMB NUM>;
         };
         combo_bspcword {
             timeout-ms = <40>;
