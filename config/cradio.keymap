@@ -121,18 +121,16 @@
             bindings = <&kp ESC>;
         };
         combo_tab {
-            timeout-ms = <100>;
+            timeout-ms = <40>;
             key-positions = <12 13>;
-            require-prior-idle-ms = <20>;
+            require-prior-idle-ms = <50>;
             bindings = <&kp TAB>;
-            layers = <SYMB NUM FUNC>;
         };
         combo_enter {
-            timeout-ms = <100>;
+            timeout-ms = <40>;
             key-positions = <16 17>;
-            require-prior-idle-ms = <20>;
+            require-prior-idle-ms = <100>;
             bindings = <&kp ENTER>;
-            layers = <SYMB NUM FUNC>;
         };
         combo_bspcword {
             timeout-ms = <40>;
