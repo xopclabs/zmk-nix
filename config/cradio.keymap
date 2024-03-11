@@ -128,8 +128,8 @@
         };
         combo_enter {
             timeout-ms = <40>;
-            key-positions = <16 17>;
-            require-prior-idle-ms = <100>;
+            key-positions = <26 27>;
+            require-prior-idle-ms = <50>;
             bindings = <&kp ENTER>;
         };
         combo_bspcword {
