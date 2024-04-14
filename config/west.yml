@@ -2,36 +2,16 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: urob
+      url-base: https://github.com/urob
+    - name: infused-kim
+      url-base: https://github.com/infused-kim
     - name: xopclabs
       url-base: https://github.com/xopclabs
   projects:
-    - name: zephyr
-      remote: zmkfirmware
-      revision: 1ae0eb5ce8adafcec993e6fb8f4eeb6f818a7772  # v3.2.0+zmk-fixes
-      import:
-        name-blocklist:
-          - ci-tools
-          - hal_altera
-          - hal_cypress
-          - hal_infineon
-          - hal_microchip
-          - hal_nxp
-          - hal_openisa
-          - hal_silabs
-          - hal_xtensa
-          - hal_st
-          - hal_ti
-          - loramac-node
-          - mcuboot
-          - mcumgr
-          - net-tools
-          - openthread
-          - edtt
-          - trusted-firmware-m
-          - sof
     - name: zmk
       remote: xopclabs
-      revision: b520387adaa01f8422e8197f0e8ded65cccfd1df  # press-on-lang-behavior
+      revision: custom-sweep
       import: app/west.yml
   self:
     path: config

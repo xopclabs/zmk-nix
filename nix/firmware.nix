@@ -11,7 +11,7 @@ buildSplitKeyboard {
   board = "nrfmicro_13";
   shield = "cradio_%PART%";
 
-  zephyrDepsHash = "sha256-4R8NUx+VRz/EiqYuEGtQqidVkI8z6KxFHYoQK7twe9o=";
+  zephyrDepsHash = "sha256-XVFuGnRrPiTsnYXVvsB/npWKiUKFbhJTw4+DlxMyDu0=";
 
   meta = with lib; {
     description = "Keyboard firmware for Ferris Sweep";
